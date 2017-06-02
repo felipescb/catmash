@@ -1,0 +1,16 @@
+{
+    "images": [
+        {
+            "url": "other/url/to/cat1",
+            "id": "cat1"
+        },
+        {
+            "url": "url/to/cat2",
+            "id": "othercat2"
+        },
+        {
+            "url": "other/url/to/cat3",
+            "id": "othercat3"
+        }
+    ]
+}

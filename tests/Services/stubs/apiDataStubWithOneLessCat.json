@@ -1,0 +1,12 @@
+{
+    "images": [
+        {
+            "url": "url/to/cat1",
+            "id": "cat1"
+        },
+        {
+            "url": "url/to/cat2",
+            "id": "cat2"
+        }
+    ]
+}
