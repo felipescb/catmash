@@ -13,3 +13,9 @@
 
 /** @var \Illuminate\Database\Eloquent\Factory $factory */
 
+$factory->define(\App\Models\Cat::class, function (\Faker\Generator $faker) {
+    return [
+        'id'  => str_random(10),
+        'url' => $faker->imageUrl(),
+    ];
+});
