@@ -7,7 +7,7 @@ use Tests\TestCase;
 
 class CatTest extends TestCase
 {
-    public function testThanKFactorIsFunctionOfRatingAndConfig()
+    public function testKFactorIsFunctionOfRatingAndConfig()
     {
         config(['catmash.k_repartition' => [
             '2400' => 1,
@@ -26,13 +26,12 @@ class CatTest extends TestCase
         $this->assertEquals(1, $this->cat(5000)->getKFactor());
     }
 
-    public function testWonReturnsAMatch()
+    public function testWillReturnDefaultRatingIfNull()
     {
-        $match = $this->cat(2000, true)->won($this->cat(1000, true));
+        config(['catmash.default_rating' => 134]);
 
-        $this->assertInstanceOf(\App\Models\Match::class, $match);
-        $this->assertEquals(2000, $match->winner->rating);
-        $this->assertEquals(1000, $match->looser->rating);
+        $this->assertEquals(null, $this->cat()->rating);
+        $this->assertEquals(134, $this->cat()->getRating());
     }
     private function cat($rating = null, $create = false): Cat
     {

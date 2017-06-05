@@ -41,16 +41,18 @@ class Match extends Model
 
     public function calcRatings()
     {
-        return [
-            'winner' => $this->calcRating($this->winner),
-            'looser' => $this->calcRating($this->looser),
-        ];
+        return collect(['winner', 'looser'])->mapWithKeys(function ($type) {
+            return [$type => [
+                'cat'    => $this->$type,
+                'rating' => $this->calcRating($this->$type),
+            ]];
+        });
     }
 
     protected function calcRating(Cat $cat)
     {
         // https://en.wikipedia.org/wiki/Elo_rating_system#Mathematical_details
-        $R =  $cat->rating;
+        $R = $cat->getRating();
         $K = $cat->getKFactor();
         $S = $this->getMatchScore($cat);
         $E = $this->getExpectedScore($cat);
@@ -70,8 +72,8 @@ class Match extends Model
     {
         // 1 / (1 + 10^((Ra-Rb)/400)) => Qa / (Qa + Qb)
 
-        $diff = $this->otherCat($cat)->rating - $cat->rating; // Ra - Rb
-        $diffSign = $diff / abs($diff); // -1 or +1
+        $diff = $this->otherCat($cat)->getRating() - $cat->getRating(); // Ra - Rb
+        $diffSign = $diff < 0 ? -1 : 1; // -1 or +1
         $diff = min(abs($diff), 400) * $diffSign; // |Ra-Rb| should be min 400
 
         return 1 / (1 + 10 ** ($diff / 400));

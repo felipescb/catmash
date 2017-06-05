@@ -15,16 +15,18 @@ class MatchTest extends TestCase
 
         $this->assertEquals(
             ['winner' => 1811, 'looser' => 1994],
-            $this->match(1800, 2005)->calcRatings()
+            $this->calcRatingsForMatch(1800, 2005)
         );
     }
 
-    private function match($winnerRating = null, $looserRating = null): Match
+    private function calcRatingsForMatch($winnerRating = null, $looserRating = null): array
     {
         return Match::create([
             'winner_id' => $this->cat($winnerRating)->id,
             'looser_id' => $this->cat($looserRating)->id,
-        ]);
+        ])->calcRatings()->mapWithKeys(function ($catAndRating, $type) {
+            return [$type => $catAndRating['rating']];
+        })->toArray();
     }
 
     private function cat($rating = null): Cat
@@ -38,7 +40,7 @@ class MatchTest extends TestCase
 
         $this->assertEquals(
             ['winner' => 1518, 'looser' => 2382],
-            $this->match(1500, 2400)->calcRatings()
+            $this->calcRatingsForMatch(1500, 2400)
         );
     }
 
@@ -46,7 +48,7 @@ class MatchTest extends TestCase
     {
         config(['catmash.k_repartition' => ['0' => 20]]);
 
-        $newRatings = $this->match(1500, 2400)->calcRatings();
+        $newRatings = $this->calcRatingsForMatch(1500, 2400);
         $this->assertEquals(1500 + 2400, array_sum($newRatings));
     }
 
@@ -54,8 +56,8 @@ class MatchTest extends TestCase
     {
         config(['catmash.k_repartition' => ['0' => 20]]);
 
-        $newRatings1 = $this->match(1000, 1300)->calcRatings();
-        $newRatings2 = $this->match(2000, 2300)->calcRatings();
+        $newRatings1 = $this->calcRatingsForMatch(1000, 1300);
+        $newRatings2 = $this->calcRatingsForMatch(2000, 2300);
 
         $this->assertEquals(
             $newRatings2['winner'] - $newRatings2['looser'],

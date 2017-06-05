@@ -25,18 +25,15 @@ class Cat extends Model
     protected $keyType = 'string';
     public $incrementing = false;
 
-    public function won(Cat $cat): Match
-    {
-        return Match::create([
-            'winner_id' => $this->id,
-            'looser_id' => $cat->id,
-        ]);
-    }
-
     public function getKFactor(): int
     {
         return array_first(config('catmash.k_repartition'), function ($_, $min_rate) {
-            return $this->rating >= $min_rate;
+            return $this->getRating() >= $min_rate;
         });
+    }
+
+    public function getRating(): int
+    {
+        return $this->rating ?? config('catmash.default_rating');
     }
 }
