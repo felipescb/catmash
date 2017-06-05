@@ -69,4 +69,29 @@ class MatchControllerTest extends \Tests\TestCase
         $this->assertEquals(1010, $winner->fresh()->rating);
         $this->assertEquals(990, $looser->fresh()->rating);
     }
+
+    public function testItShouldListTwoRandomCats()
+    {
+        $cats = collect()->times(3, function ($id) {
+            return tap([
+                'id'  => 'cat' . $id,
+                'url' => 'url/to/cat' . $id,
+            ], function ($attributes) {
+                Cat::create($attributes);
+            });
+        });
+
+        $response = $this->getJson('/');
+        $json = $response->json();
+
+        $this->assertCount(2, $json);
+
+        $response->assertJsonStructure([
+            '*' => ['id', 'url'],
+        ]);
+
+        $this->assertNotEquals($json[0], $json[1]);
+        $this->assertContains($json[0], $cats->toArray());
+        $this->assertContains($json[1], $cats->toArray());
+    }
 }

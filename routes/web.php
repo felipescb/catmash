@@ -11,4 +11,5 @@
 |
 */
 
+Route::get('/', 'MatchController@create');
 Route::resource('matches', 'MatchController', ['only' => 'store']);
