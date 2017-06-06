@@ -6,12 +6,17 @@ use App\Http\Requests\MatchStoreRequest;
 use App\Models\Cat;
 use App\Models\Match;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
 
 class MatchController extends Controller
 {
-    public function create()
+    public function create(Request $request)
     {
-        return new JsonResponse($this->getTwoRandomCats());
+        if ($request->expectsJson()) {
+            return new JsonResponse($this->getTwoRandomCats());
+        }
+
+        return view('home');
     }
 
     private function getTwoRandomCats()

@@ -3,6 +3,7 @@ import axios from 'axios';
 import 'bootstrap-sass';
 import $ from 'jquery';
 
+import Match from './components/Match.vue'
 
 axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 axios.defaults.headers.common['X-CSRF-TOKEN'] = $('meta[name="csrf-token"]').attr('content');
@@ -12,5 +13,6 @@ const app = new Vue({
     el: '#app',
 
     components: {
+        Match
     }
 });
