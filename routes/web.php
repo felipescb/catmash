@@ -13,3 +13,4 @@
 
 Route::get('/', 'MatchController@create');
 Route::resource('matches', 'MatchController', ['only' => 'store']);
+Route::resource('cats', 'CatController', ['only' => 'index']);

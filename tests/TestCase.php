@@ -8,4 +8,14 @@ use Illuminate\Foundation\Testing\TestCase as BaseTestCase;
 abstract class TestCase extends BaseTestCase
 {
     use CreatesApplication, DatabaseMigrations, ExceptionHandler;
+
+    /** @var  \Faker\Generator */
+    protected $faker;
+
+    protected function setUp()
+    {
+        parent::setUp();
+
+        $this->faker = $this->app->make(\Faker\Generator::class);
+    }
 }
