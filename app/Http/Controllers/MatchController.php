@@ -3,10 +3,27 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\MatchStoreRequest;
+use App\Models\Cat;
 use App\Models\Match;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
 
 class MatchController extends Controller
 {
+    public function create(Request $request)
+    {
+        if ($request->expectsJson()) {
+            return new JsonResponse($this->getTwoRandomCats());
+        }
+
+        return view('home');
+    }
+
+    private function getTwoRandomCats()
+    {
+        return Cat::inRandomOrder()->take(2)->get(['id', 'url']);
+    }
+
     public function store(MatchStoreRequest $request)
     {
         Match::create([
@@ -17,6 +34,6 @@ class MatchController extends Controller
             $cat->update(compact('rating'));
         });
 
-        return new \Illuminate\Http\JsonResponse(['success' => 'true'], 201);
+        return new JsonResponse($this->getTwoRandomCats(), 201);
     }
 }
