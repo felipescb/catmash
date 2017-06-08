@@ -1,5 +1,9 @@
 <?php
 
+$getHerokuConfig = function ($config) {
+    return data_get(parse_url(env("DATABASE_URL")), $config);
+};
+
 return [
 
     /*
@@ -32,20 +36,31 @@ return [
     */
 
     'connections' => [
-
         'mysql' => [
-            'driver' => 'mysql',
-            'host' => env('DB_HOST', '127.0.0.1'),
-            'port' => env('DB_PORT', '3306'),
-            'database' => env('DB_DATABASE', 'catmash'),
-            'username' => env('DB_USERNAME', 'catmash'),
-            'password' => env('DB_PASSWORD', ''),
+            'driver'      => 'mysql',
+            'host'        => env('DB_HOST', '127.0.0.1'),
+            'port'        => env('DB_PORT', '3306'),
+            'database'    => env('DB_DATABASE', 'catmash'),
+            'username'    => env('DB_USERNAME', 'catmash'),
+            'password'    => env('DB_PASSWORD', ''),
             'unix_socket' => env('DB_SOCKET', ''),
-            'charset' => 'utf8mb4',
-            'collation' => 'utf8mb4_unicode_ci',
-            'prefix' => '',
-            'strict' => true,
-            'engine' => null,
+            'charset'     => 'utf8mb4',
+            'collation'   => 'utf8mb4_unicode_ci',
+            'prefix'      => '',
+            'strict'      => true,
+            'engine'      => null,
+        ],
+
+        'heroku' => [
+            'driver'   => 'pgsql',
+            'host'     => $getHerokuConfig('host'),
+            'database' => substr($getHerokuConfig('path'), 1),
+            'username' => $getHerokuConfig('user'),
+            'password' => $getHerokuConfig('pass'),
+            'charset'  => 'utf8',
+            'prefix'   => '',
+            'schema'   => 'public',
+            'sslmode' => 'prefer',
         ],
 
         'testing' => [
@@ -93,9 +108,9 @@ return [
         'client' => 'predis',
 
         'default' => [
-            'host' => env('REDIS_HOST', '127.0.0.1'),
+            'host'     => env('REDIS_HOST', '127.0.0.1'),
             'password' => env('REDIS_PASSWORD', null),
-            'port' => env('REDIS_PORT', 6379),
+            'port'     => env('REDIS_PORT', 6379),
             'database' => 0,
         ],
 
