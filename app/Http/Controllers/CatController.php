@@ -11,9 +11,21 @@ class CatController extends Controller
 {
     public function index(Request $request, CatsRanker $catsRanker)
     {
-        $rankedCats = $catsRanker->rank(Cat::whereNotNull('rating')->get(['id', 'url', 'rating']));
-        $notRankedCats = Cat::whereNull('rating')->get(['id', 'url', 'rating']);
+        if ($request->expectsJson()) {
+            return new JsonResponse($this->getCats($catsRanker));
+        }
 
-        return new JsonResponse(compact('rankedCats', 'notRankedCats'));
+        return view('cats');
+    }
+
+    private function getCats(CatsRanker $catsRanker): array
+    {
+        $rankedCats = $catsRanker->rank(Cat::whereNotNull('rating')->get(['id', 'url', 'rating']));
+
+        return [
+            'topRankedCats'   => $rankedCats->where('rank', '<=', 5)->values(),
+            'otherRankedCats' => $rankedCats->where('rank', '>=', 5)->values(),
+            'notRankedCats'   => Cat::whereNull('rating')->get(['id', 'url', 'rating'])->values(),
+        ];
     }
 }
