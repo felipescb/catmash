@@ -2,6 +2,7 @@
     <div class="container">
         <div class="row">
             <div class="col-md-10 col-md-offset-1 text-center">
+                <Loader v-if="loading"/>
                 <div class="row" v-if="topRankedCats.length">
                     <h2>The top 5</h2>
                     <div class="ranked top5">
@@ -26,10 +27,12 @@
 
 <script>
     import Cat from './Cat.vue';
+    import Loader from './Loader.vue';
 
     export default {
         components: {
             Cat,
+            Loader
         },
 
         data () {
@@ -37,6 +40,7 @@
                 topRankedCats: {},
                 otherRankedCats: {},
                 notRankedCats: {},
+                loading: true,
             }
         },
         mounted () {
@@ -44,14 +48,9 @@
                 this.topRankedCats = res.data.topRankedCats;
                 this.otherRankedCats = res.data.otherRankedCats;
 //                this.notRankedCats = res.data.notRankedCats;
+                this.loading = false;
             });
         },
-
-        created () {
-
-        },
-
-        methods: {}
     }
 </script>
 

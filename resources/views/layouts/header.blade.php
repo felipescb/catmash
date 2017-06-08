@@ -17,6 +17,9 @@
                     <a href="{{ url('/cats') }}">Results</a>
                 </li>
             </ul>
+            <ul class="nav navbar-right">
+                <img src="pics/header.png" alt="header" style="max-height: 41px; margin-top: 5px;">
+            </ul>
         </div>
     </div>
 </div>
