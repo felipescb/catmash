@@ -24,7 +24,7 @@ class CatController extends Controller
 
         return [
             'topRankedCats'   => $rankedCats->where('rank', '<=', 5)->values(),
-            'otherRankedCats' => $rankedCats->where('rank', '>=', 5)->values(),
+            'otherRankedCats' => $rankedCats->where('rank', '>', 5)->values(),
             'notRankedCats'   => Cat::whereNull('rating')->get(['id', 'url', 'rating'])->values(),
         ];
     }

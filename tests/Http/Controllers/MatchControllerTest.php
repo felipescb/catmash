@@ -94,4 +94,12 @@ class MatchControllerTest extends \Tests\TestCase
         $this->assertContains($json[0], $cats->toArray());
         $this->assertContains($json[1], $cats->toArray());
     }
+
+    public function testReturnViewIfNotXhr()
+    {
+        $response = $this->get('/');
+        $response->assertViewIs('home');
+        $response->assertSeeText('CatMash');
+        $response->assertSeeText('Mathieu TUDISCO');
+    }
 }
