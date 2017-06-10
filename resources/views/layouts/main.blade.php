@@ -8,7 +8,7 @@
 
         <title>CatMash</title>
 
-        <link rel="stylesheet" href="{{ mix('/css/app.css') }}">
+        <link rel="stylesheet" href="{{ mix_except_in_tests('/css/app.css') }}">
     </head>
     <body>
         @include('layouts.header')
@@ -17,9 +17,9 @@
         </div>
         @include('layouts.footer')
 
-        <script src="{{ mix('/js/manifest.js') }}"></script>
-        <script src="{{ mix('/js/vendor.js') }}"></script>
-        <script src="{{ mix('/js/app.js') }}"></script>
+        <script src="{{ mix_except_in_tests('/js/manifest.js') }}"></script>
+        <script src="{{ mix_except_in_tests('/js/vendor.js') }}"></script>
+        <script src="{{ mix_except_in_tests('/js/app.js') }}"></script>
         @yield('js')
     </body>
 </html>
