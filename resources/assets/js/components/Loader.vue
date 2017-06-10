@@ -5,6 +5,6 @@
 <style lang="scss">
     img.loader {
         height: 200px;
-        margin: 100px;
+        margin-top: 60px;
     }
 </style>

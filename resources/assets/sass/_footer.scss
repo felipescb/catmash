@@ -1,0 +1,43 @@
+/* Sticky footer styles
+-------------------------------------------------- */
+html {
+    position: relative;
+    min-height: 100%;
+}
+
+body {
+    margin-bottom: 100px;
+}
+
+.footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    min-height: 50px;
+
+    .container {
+        padding-right: 15px;
+        padding-left: 15px;
+
+        .text-muted {
+            margin: 15px 0;
+        }
+        img {
+            max-height: 41px;
+            margin-top: 5px;
+        }
+    }
+}
+
+/*
+
+body > .container {
+    padding: 50px 15px 0;
+}
+
+
+.footer > .container {
+    padding-right: 15px;
+    padding-left: 15px;
+}
+*/

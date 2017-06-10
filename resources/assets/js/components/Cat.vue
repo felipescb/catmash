@@ -18,10 +18,15 @@
 
 <style lang="scss">
     .vote {
-        img {
-            max-height: 300px;
-            &:hover {
-                border: black solid 2px;
+        .cat {
+            margin: 10px 0;
+            cursor: pointer;
+
+            img {
+                max-height: 300px;
+                &:hover {
+                    border: black solid 2px;
+                }
             }
         }
     }

@@ -15,6 +15,7 @@
         <div id="app">
             @yield('content')
         </div>
+        @include('layouts.footer')
 
         <script src="{{ mix('/js/manifest.js') }}"></script>
         <script src="{{ mix('/js/vendor.js') }}"></script>

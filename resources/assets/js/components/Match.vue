@@ -7,7 +7,6 @@
                     <div class="row vote">
                         <Cat class="col-md-6 text-center" v-for="cat in cats" :key="cat.id" :cat="cat"
                              @click.native="vote(cat)"
-                             style="cursor: pointer"
                         />
                     </div>
                     <div class="row text-center" style="margin-top: 20px">

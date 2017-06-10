@@ -10,14 +10,14 @@
         </div>
         <div class="navbar-collapse collapse" id="navbar-main">
             <ul class="nav navbar-nav">
-                <li>
-                    <a href="{{ url('/') }}">Vote</a>
+                <li class="{{ request()->is('/') ? 'active' :'' }}">
+                    <a href="{{ url('/') }}" >Vote</a>
                 </li>
-                <li>
+                <li class="{{ request()->is('cats') ? 'active' :'' }}">
                     <a href="{{ url('/cats') }}">Results</a>
                 </li>
             </ul>
-            <ul class="nav navbar-right">
+            <ul class="nav navbar-right hidden-xs">
                 <img src="pics/header.png" alt="header" style="max-height: 41px; margin-top: 5px;">
             </ul>
         </div>
