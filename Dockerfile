@@ -18,12 +18,11 @@ RUN composer install --no-dev --no-interaction
 
 ADD .env.example /app/.env
 RUN php artisan key:generate
-RUN php artisan migrate --force
 
 RUN $HOME/.yarn/bin/yarn install --force
 RUN $HOME/.yarn/bin/yarn production
 RUN rm -Rf nodes_module
 
-CMD php artisan serve --host=0.0.0.0 --port=80
+CMD php artisan migrate --force && php artisan serve --host=0.0.0.0 --port=80
 
 EXPOSE 80
