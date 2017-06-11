@@ -16,7 +16,7 @@ COPY . /app
 
 RUN composer install --no-dev --no-interaction
 
-ADD .env.example /app/.env
+ADD .env.prod /app/.env
 RUN php artisan key:generate
 
 RUN $HOME/.yarn/bin/yarn install --force
