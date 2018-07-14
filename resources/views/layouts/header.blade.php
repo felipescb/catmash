@@ -13,8 +13,8 @@
                 <li class="{{ request()->is('/') ? 'active' :'' }}">
                     <a href="{{ url('/') }}" >Vote</a>
                 </li>
-                <li class="{{ request()->is('cats') ? 'active' :'' }}">
-                    <a href="{{ url('/cats') }}">Results</a>
+                <li class="{{ request()->is('meals') ? 'active' :'' }}">
+                    <a href="{{ url('/meals') }}">Results</a>
                 </li>
             </ul>
             <ul class="nav navbar-right hidden-xs">

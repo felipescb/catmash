@@ -101,7 +101,7 @@ class DatabaseUpdater
 
     private function syncUrlsFromApi(): self
     {
-        $this->mealssFromApi()->diff($this->mealssFromDatabase())->each(function ($url, $id) {
+        $this->mealssFromApi()->diff($this->mealsFromDatabase())->each(function ($url, $id) {
             Meal::updateOrCreate(compact('id'), ['url' => $url]);
         });
 

@@ -1,5 +1,5 @@
 @extends('layouts.main')
 
 @section('content')
-    <Cats></Cats>
+    <Meals></Meals>
 @endsection()

@@ -6,7 +6,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="csrf-token" content="{{ csrf_token() }}">
 
-        <title>CatMash</title>
+        <title>SodexoMash</title>
 
         <link rel="stylesheet" href="{{ mix_except_in_tests('/css/app.css') }}">
     </head>

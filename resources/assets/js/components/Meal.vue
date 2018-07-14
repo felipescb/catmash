@@ -1,16 +1,16 @@
 <template>
     <figure class="cat">
-        <img :src="cat.url" :alt="cat.id" class="img-responsive img-thumbnail"
+        <img :src="meal.url" :alt="meal.id" class="img-responsive img-thumbnail"
              onerror="this.src='pics/broken.png';"
         >
-        <h3 v-if="cat.rank" v-text="cat.rank"/>
+        <h3 v-if="meal.rank" v-text="meal.rank"/>
     </figure>
 </template>
 
 <script>
     export default {
         props: {
-            cat: {}
+            meal: {}
         },
     }
 

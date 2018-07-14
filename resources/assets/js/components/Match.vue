@@ -5,8 +5,8 @@
                 <Loader v-if="loading"/>
                 <div v-else>
                     <div class="row vote">
-                        <Cat class="col-md-6 text-center" v-for="cat in cats" :key="cat.id" :cat="cat"
-                             @click.native="vote(cat)"
+                        <Meal class="col-md-6 text-center" v-for="meal in meals" :key="meal.id" :meal="meal"
+                             @click.native="vote(meal)"
                         />
                     </div>
                     <div class="row text-center" style="margin-top: 20px">
@@ -19,18 +19,18 @@
 </template>
 
 <script>
-    import Cat from './Cat.vue';
+    import Meal from './Meal.vue';
     import Loader from './Loader.vue';
 
     export default {
         components: {
-            Cat,
+            Meal,
             Loader
         },
 
         data () {
             return {
-                cats: {},
+                meals: {},
                 loading: true
             }
         },
@@ -41,10 +41,10 @@
         created () {
             window.addEventListener('keyup', keyUp => {
                 if (keyUp.keyCode === 37) {
-                    return this.vote(this.cats[0])
+                    return this.vote(this.meals[0])
                 }
                 if (keyUp.keyCode === 39) {
-                    return this.vote(this.cats[1])
+                    return this.vote(this.meals[1])
                 }
                 if (keyUp.keyCode === 38 || keyUp.keyCode === 40) {
                     return this.get()
@@ -57,16 +57,16 @@
                 this.loading = true;
                 this.axios.post('/matches', {
                     winner: winner.id,
-                    looser: this.cats.find(cat => cat.id !== winner.id).id,
+                    looser: this.meals.find(meal => meal.id !== winner.id).id,
                 }).then(res => {
-                    this.cats = res.data;
+                    this.meals = res.data;
                     this.loading = false;
                 })
             },
             get () {
                 this.loading = true;
                 this.axios.get(window.location).then(res => {
-                    this.cats = res.data;
+                    this.meals = res.data;
                     this.loading = false;
                 });
             }

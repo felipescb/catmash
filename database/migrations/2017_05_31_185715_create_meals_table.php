@@ -18,6 +18,6 @@ class CreateMealsTable extends Migration
 
     public function down()
     {
-        Schema::dropIfExists('cats');
+        Schema::dropIfExists('meals');
     }
 }

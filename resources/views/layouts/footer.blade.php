@@ -23,7 +23,7 @@
                     <a href="{{ url('/') }}">Vote</a>
                 </li>
                 <li>
-                    <a href="{{ url('/cats') }}">Results</a>
+                    <a href="{{ url('/matches') }}">Results</a>
                 </li>
             </ul>
             <ul class="nav navbar-right">

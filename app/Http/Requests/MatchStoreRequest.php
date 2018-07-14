@@ -24,8 +24,8 @@ class MatchStoreRequest extends FormRequest
     public function rules()
     {
         return [
-            'winner' => 'required|exists:cats,id',
-            'looser' => 'required|exists:cats,id',
+            'winner' => 'required|exists:meals,id',
+            'looser' => 'required|exists:meals,id',
         ];
     }
 }

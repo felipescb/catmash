@@ -4,7 +4,7 @@ import 'bootstrap-sass';
 import $ from 'jquery';
 
 import Match from './components/Match.vue'
-import Cats from './components/Cats.vue'
+import Meals from './components/Meals.vue'
 
 axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 axios.defaults.headers.common['X-CSRF-TOKEN'] = $('meta[name="csrf-token"]').attr('content');
@@ -15,6 +15,6 @@ const app = new Vue({
 
     components: {
         Match,
-        Cats
+        Meals
     }
 });
