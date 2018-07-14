@@ -13,7 +13,6 @@
     <body>
         @include('layouts.header')
         <div id="app">
-                <h2 class='text-center'>Which meal do you prefer?</h2>
             @yield('content')
         </div>
         @include('layouts.footer')

@@ -1,5 +1,6 @@
 <template>
     <div class="container">
+        <h2 class='text-center'>Which meal do you prefer?</h2>
         <div class="row">
             <div class="col-md-10 col-md-offset-1 text-center">
                 <Loader v-if="loading"/>
