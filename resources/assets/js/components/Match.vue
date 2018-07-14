@@ -11,7 +11,7 @@
                         />
                     </div>
                     <div class="row text-center" style="margin-top: 20px">
-                        <button class="btn btn-default" @click="get">No one!</button>
+                        <button class="btn btn-default btn-block" @click="get">No one!</button>
                     </div>
                 </div>
             </div>
