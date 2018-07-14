@@ -4,11 +4,11 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateCatsTable extends Migration
+class CreateMealsTable extends Migration
 {
     public function up()
     {
-        Schema::create('cats', function (Blueprint $table) {
+        Schema::create('meals', function (Blueprint $table) {
             $table->string('id')->primary();
             $table->string('url');
             $table->unsignedInteger('rating')->nullable();

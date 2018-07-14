@@ -1,12 +1,8 @@
-## CatMash
+## SodexoMash
 
-[![Travis build](https://img.shields.io/travis/mathieutu/catmash/master.svg?style=flat-square&label=Build)](https://travis-ci.org/mathieutu/catmash?branch=master) 
-[![Test coverage](https://img.shields.io/scrutinizer/coverage/g/mathieutu/catmash.svg?style=flat-square&label=Coverage)](https://scrutinizer-ci.com/g/mathieutu/catmash/?branch=master) 
-[![Code quality](https://img.shields.io/scrutinizer/g/mathieutu/catmash.svg?style=flat-square&label=Quality)](https://scrutinizer-ci.com/g/mathieutu/catmash/?branch=master) 
+SodexoMash is a facemash-like php project, to vote for the best sodexo food ever! 
 
-CatMash is a facemash-like php project, to vote for the cutest cat ever! 
-
-This readme is under redaction.
+This readme is under redaction and this is a fork from mathieutu/catmash. 
 
 ### Hosting quickly
 You can host this app with docker:
@@ -40,5 +36,3 @@ php artisan serve
 
 See [https://laravel.com/docs/](https://laravel.com/docs/) for more information.
 
-###License
-The CatMash app is open-sourced software licensed under the [MIT license](http://opensource.org/licenses/MIT).
