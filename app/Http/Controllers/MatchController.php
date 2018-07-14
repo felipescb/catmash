@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\MatchStoreRequest;
-use App\Models\Cat;
+use App\Models\Meal;
 use App\Models\Match;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -13,15 +13,15 @@ class MatchController extends Controller
     public function create(Request $request)
     {
         if ($request->expectsJson()) {
-            return new JsonResponse($this->getTwoRandomCats());
+            return new JsonResponse($this->getTwoRandomMeals());
         }
 
         return view('home');
     }
 
-    private function getTwoRandomCats()
+    private function getTwoRandomMeals()
     {
-        return Cat::inRandomOrder()->take(2)->get(['id', 'url']);
+        return Meal::inRandomOrder()->take(2)->get(['id', 'url']);
     }
 
     public function store(MatchStoreRequest $request)
@@ -29,11 +29,11 @@ class MatchController extends Controller
         Match::create([
             'winner_id' => $request->input('winner'),
             'looser_id' => $request->input('looser'),
-        ])->calcRatings()->each(function ($catAndRating) {
-            ['cat' => $cat, 'rating' => $rating] = $catAndRating;
-            $cat->update(compact('rating'));
+        ])->calcRatings()->each(function ($mealAndRating) {
+            ['meal' => $meal, 'rating' => $rating] = $mealAndRating;
+            $meal->update(compact('rating'));
         });
 
-        return new JsonResponse($this->getTwoRandomCats(), 201);
+        return new JsonResponse($this->getTwoRandomMeals(), 201);
     }
 }

@@ -23,7 +23,7 @@ class UpdateDatabase
      */
     public function handle($request, Closure $next)
     {
-        $this->databaseUpdater->synchronizeCats();
+        $this->databaseUpdater->synchronizeMeals();
 
         return $next($request);
     }

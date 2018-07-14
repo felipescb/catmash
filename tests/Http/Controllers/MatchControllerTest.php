@@ -2,22 +2,22 @@
 
 namespace Tests\Http\Controllers;
 
-use App\Models\Cat;
+use App\Models\Meal;
 use App\Models\Match;
 
 class MatchControllerTest extends \Tests\TestCase
 {
-    public function testReturnAnErrorIfACatIsMissingInRequest()
+    public function testReturnAnErrorIfAMealIsMissingInRequest()
     {
         $response = $this->postJson('matches', [
-            'winner' => factory(Cat::class)->create()->id,
+            'winner' => factory(Meal::class)->create()->id,
         ]);
 
         $response->assertStatus(422);
         $response->assertExactJson(['looser' => ["The looser field is required."]]);
     }
 
-    public function testReturnAnErrorIfACatDoesNotExists()
+    public function testReturnAnErrorIfAMealDoesNotExists()
     {
         $response = $this->postJson('matches', [
             'winner' => str_random(8),
@@ -39,8 +39,8 @@ class MatchControllerTest extends \Tests\TestCase
         $this->assertEquals(0, Match::count());
 
         $response = $this->postJson('matches', [
-            'winner' => factory(Cat::class)->create()->id,
-            'looser' => factory(Cat::class)->create()->id,
+            'winner' => factory(Meal::class)->create()->id,
+            'looser' => factory(Meal::class)->create()->id,
         ]);
 
         $this->assertEquals(1, Match::count());
@@ -51,12 +51,12 @@ class MatchControllerTest extends \Tests\TestCase
     public function testRatingsAreUpdated()
     {
         config([
-            'catmash.default_rating' => 1000,
-            'catmash.k_repartition'  => ['0' => 20],
+            'mealmash.default_rating' => 1000,
+            'mealmash.k_repartition'  => ['0' => 20],
         ]);
         $this->disableExceptionHandling();
 
-        [$winner, $looser] = factory(Cat::class, 2)->create();
+        [$winner, $looser] = factory(Meal::class, 2)->create();
 
         $this->assertEquals(null, $winner->rating);
         $this->assertEquals(null, $looser->rating);
@@ -70,14 +70,14 @@ class MatchControllerTest extends \Tests\TestCase
         $this->assertEquals(990, $looser->fresh()->rating);
     }
 
-    public function testItShouldListTwoRandomCats()
+    public function testItShouldListTwoRandomMeals()
     {
-        $cats = collect()->times(3, function ($id) {
+        $Meals = collect()->times(3, function ($id) {
             return tap([
-                'id'  => 'cat' . $id,
-                'url' => 'url/to/cat' . $id,
+                'id'  => 'Meal' . $id,
+                'url' => 'url/to/Meal' . $id,
             ], function ($attributes) {
-                Cat::create($attributes);
+                Meal::create($attributes);
             });
         });
 
@@ -91,15 +91,15 @@ class MatchControllerTest extends \Tests\TestCase
         ]);
 
         $this->assertNotEquals($json[0], $json[1]);
-        $this->assertContains($json[0], $cats->toArray());
-        $this->assertContains($json[1], $cats->toArray());
+        $this->assertContains($json[0], $Meals->toArray());
+        $this->assertContains($json[1], $Meals->toArray());
     }
 
     public function testReturnViewIfNotXhr()
     {
         $response = $this->get('/');
         $response->assertViewIs('home');
-        $response->assertSeeText('CatMash');
+        $response->assertSeeText('MealMash');
         $response->assertSeeText('Mathieu TUDISCO');
     }
 }

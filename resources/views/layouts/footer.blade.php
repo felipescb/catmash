@@ -3,13 +3,12 @@
         <div class="row">
             <div class="col-xs-10">
                 <p class="text-muted">
-                    Powered by <a href="https://github.com/mathieutu" target="_blank">Mathieu TUDISCO</a>
-                    with Laravel 5.4 and Vuejs 2.
+                    Huge Thanks To <a href="https://github.com/mathieutu" target="_blank">Mathieu TUDISCO</a>
                 </p>
 
             </div>
             <div class="col-xs-2">
-                <a href="https://github.com/mathieutu/catmash" target="_blank" class="pull-right">
+                <a href="https://github.com/felipescb/sodexomash" target="_blank" class="pull-right">
                     <img src="pics/octocat.png" alt="octocat">
                 </a>
             </div>
@@ -29,10 +28,7 @@
             </ul>
             <ul class="nav navbar-right">
                 <li>
-                    Powered by <a href="mailto:dev@mathieutu.ovh">Mathieu TUDISCO</a> with Laravel 5.4 and Vuejs 2.
-                </li>
-                <li>
-                    See the code and fork it, on <a href="https://github.com/mathieutu/catmash">Github</a>.
+                    Huge Thanks To <a href="mailto:dev@mathieutu.ovh">Mathieu TUDISCO</a>
                 </li>
                 <img src="pics/header.png" alt="header" style="max-height: 41px; margin-top: 5px;">
             </ul>

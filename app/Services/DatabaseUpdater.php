@@ -2,7 +2,7 @@
 
 namespace App\Services;
 
-use App\Models\Cat;
+use App\Models\Meal;
 use Illuminate\Contracts\Filesystem\Filesystem;
 use Illuminate\Support\Collection;
 
@@ -18,14 +18,14 @@ class DatabaseUpdater
     private $apiResponse;
     private $cacheExists;
     private $thereIsNoChange;
-    private $catsFromApi;
+    private $mealsFromApi;
 
     public function __construct(Filesystem $storage)
     {
         $this->storage = $storage;
     }
 
-    public function synchronizeCats()
+    public function synchronizeMeals()
     {
         $this->makeApiCall();
 
@@ -43,7 +43,7 @@ class DatabaseUpdater
 
     private function makeApiCall(): self
     {
-        $this->apiResponse = @file_get_contents(config('catmash.api_url'));
+        $this->apiResponse = @file_get_contents(config('mealmash.api_url'));
 
         return $this;
     }
@@ -67,32 +67,32 @@ class DatabaseUpdater
     private function deleteOldEntriesInDatabase(): self
     {
         if ($this->cacheExists()) {
-            $keysWhichAreNotInApi = $this->catsFromDatabase()->diffKeys($this->catsFromApi())->keys();
+            $keysWhichAreNotInApi = $this->mealsFromDatabase()->diffKeys($this->mealsFromApi())->keys();
 
             if ($keysWhichAreNotInApi->isNotEmpty()) {
-                Cat::whereIn('id', $keysWhichAreNotInApi)->delete();
+                Meal::whereIn('id', $keysWhichAreNotInApi)->delete();
             }
         }
 
         return $this;
     }
 
-    private function catsFromDatabase(): Collection
+    private function mealsFromDatabase(): Collection
     {
-        return Cat::get(['id', 'url'])->sortBy('id')->toBase()->pluck('url', 'id');
+        return Meal::get(['id', 'url'])->sortBy('id')->toBase()->pluck('url', 'id');
     }
 
-    private function catsFromApi(): Collection
+    private function mealsFromApi(): Collection
     {
-        return $this->catsFromApi ?? collect(json_decode($this->apiResponse, true)['images'])
+        return $this->mealsFromApi ?? collect(json_decode($this->apiResponse, true)['images'])
                 ->sortBy('id')->pluck('url', 'id');
     }
 
     private function syncIdsFromApi(): self
     {
         if ($this->cacheExists()) {
-            $this->catsFromApi()->diffKeys($this->catsFromDatabase())->each(function ($url, $id) {
-                Cat::updateOrCreate(compact('url'), ['id' => $id]);
+            $this->mealsFromApi()->diffKeys($this->mealsFromDatabase())->each(function ($url, $id) {
+                Meal::updateOrCreate(compact('url'), ['id' => $id]);
             });
         }
 
@@ -101,8 +101,8 @@ class DatabaseUpdater
 
     private function syncUrlsFromApi(): self
     {
-        $this->catsFromApi()->diff($this->catsFromDatabase())->each(function ($url, $id) {
-            Cat::updateOrCreate(compact('id'), ['url' => $url]);
+        $this->mealssFromApi()->diff($this->mealssFromDatabase())->each(function ($url, $id) {
+            Meal::updateOrCreate(compact('id'), ['url' => $url]);
         });
 
         return $this;

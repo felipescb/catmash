@@ -2,30 +2,30 @@
 
 namespace App\Services;
 
-use App\Models\Cat;
+use App\Models\Meal;
 use Illuminate\Support\Collection;
 
-class CatsRanker
+class MealsRanker
 {
     /** @var  Collection */
-    protected $cats;
+    protected $meals;
 
-    public function rank(Collection $cats): Collection
+    public function rank(Collection $meals): Collection
     {
         return $this
-            ->assignInitialRankings($cats)
+            ->assignInitialRankings($meals)
             ->adjustRankingsForTies()
-            ->returnCats();
+            ->returnMeals();
     }
 
-    protected function returnCats(): Collection
+    protected function returnMeals(): Collection
     {
-        return $this->cats->sortBy('rank');
+        return $this->meals->sortBy('rank');
     }
 
     protected function adjustRankingsForTies(): self
     {
-        $this->cats = $this->cats->groupBy('rating')->map(function ($tiedRatings) {
+        $this->meals = $this->meals->groupBy('rating')->map(function ($tiedRatings) {
             return $this->applyMinRank($tiedRatings);
         })->collapse();
 
@@ -41,12 +41,12 @@ class CatsRanker
         });
     }
 
-    protected function assignInitialRankings(Collection $cats): self
+    protected function assignInitialRankings(Collection $meals): self
     {
-        $this->cats = $cats->sortByDesc('rating')
-            ->zip(range(1, $cats->count()))
-            ->mapSpread(function (Cat $cat, int $rank) {
-                return array_merge($cat->toArray(), compact('rank'));
+        $this->meals = $meals->sortByDesc('rating')
+            ->zip(range(1, $meals->count()))
+            ->mapSpread(function (Meal $meal, int $rank) {
+                return array_merge($meal->toArray(), compact('rank'));
             });
 
         return $this;
